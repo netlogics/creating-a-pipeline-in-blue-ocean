@@ -20,18 +20,16 @@ pipeline {
       }
     }
     stage('deliver') {
-
-
       steps {
         script {
           def server = Artifactory.server 'artifactory'
           def uploadSpec = """{
             "files": [
               {
-                "pattern": "./jenkins/*",
+                "pattern": "Jenkinsfile",
                 "target": "jenkins-blue-ocean-pipeline/"
               }
-          ]
+            ]
           }"""
           def buildInfo = server.upload(uploadSpec)
           buildInfo.env.capture = true
