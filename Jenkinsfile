@@ -33,7 +33,6 @@ pipeline {
           }"""
           def buildInfo = server.upload(uploadSpec)
           buildInfo.env.capture = true
-          buildInfo.env.collect
           server.publishBuildInfo buildInfo
         }
 
