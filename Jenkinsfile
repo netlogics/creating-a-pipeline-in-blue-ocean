@@ -20,7 +20,25 @@ pipeline {
       }
     }
     stage('deliver') {
+
+
       steps {
+        script {
+          def server = Artifactory.server 'artifactory'
+          def uploadSpec = """{
+            "files": [
+              {
+                "pattern": "./jenkins/*",
+                "target": "jenkins-blue-ocean-pipeline/"
+              }
+          ]
+          }"""
+          def buildInfo = server.upload(uploadSpec)
+          buildInfo.env.capture = true
+          buildInfo.env.collect
+          server.publishBuildInfo buildInfo
+        }
+
         sh './jenkins/scripts/deliver.sh'
         input 'Finished using the web site? (Click "Proceed" to continue)'
         sh './jenkins/scripts/kill.sh'
