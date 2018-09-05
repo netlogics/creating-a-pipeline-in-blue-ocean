@@ -26,7 +26,7 @@ pipeline {
           def uploadSpec = """{
             "files": [
               {
-                "pattern": "./Jenkinsfile",
+                "pattern": "*",
                 "target": "jenkins-blue-ocean-pipeline/"
               }
             ]
