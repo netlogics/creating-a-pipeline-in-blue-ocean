@@ -23,6 +23,9 @@ pipeline {
       steps {
         script {
           def server = Artifactory.server 'artifactory'
+          echo 'yo foo'
+          workspace_path = System.getenv("BASE")
+          echo workspace_path
           def uploadSpec = """{
             "files": [
               {
